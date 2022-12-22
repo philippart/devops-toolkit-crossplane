@@ -2,11 +2,14 @@ apiVersion: apiextensions.crossplane.io/v1
 kind: CompositeResourceDefinition
 metadata:
   name: compositeclusters.devopstoolkitseries.com
+  labels:
+    idp: "true"
 spec:
   connectionSecretKeys:
   - kubeconfig
+  - value
   defaultCompositionRef:
-    name: cluster-google
+    name: cluster-aws
   group: devopstoolkitseries.com
   names:
     kind: CompositeCluster
@@ -27,18 +30,19 @@ spec:
             properties:
               id:
                 type: string
-                description: ID of this Cluster that other objects will use to refer to it.
+                description: ID of this Cluster that other objects can refer.
               parameters:
                 type: object
+                description: Parameters used to customize the cluster
                 properties:
                   version:
                     description: The Kubernetes version for the cluster.
                     type: string
                   nodeSize:
-                    description: The size of the nodes; small, medium, large
+                    description: The size of the nodes; small, medium, large.
                     type: string
                   minNodeCount:
-                    description: The minimum number of nodes
+                    description: The minimum number of nodes.
                     type: integer
                     default: 1
                 required:
@@ -50,13 +54,13 @@ spec:
             type: object
             properties:
               clusterName:
-                description: The name of the cluster
+                description: The name of the cluster.
                 type: string
               controlPlaneStatus:
-                description: The status of the control plane
+                description: The status of the control plane.
                 type: string
               nodePoolStatus:
-                description: The status of the node pool
+                description: The status of the node pool.
                 type: string
     additionalPrinterColumns:
     - name: clusterName

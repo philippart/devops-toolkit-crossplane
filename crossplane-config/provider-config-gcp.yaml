@@ -1,11 +1,10 @@
 ---
-
 apiVersion: gcp.crossplane.io/v1beta1
 kind: ProviderConfig
 metadata:
   name: default
 spec:
-  projectID: devops-toolkit-20211217154043
+  projectID: dot-20221020162015
   credentials:
     source: Secret
     secretRef:

@@ -1,0 +1,36 @@
+---
+
+apiVersion: azure.upbound.io/v1beta1
+kind: ResourceGroup
+metadata:
+  name: vfarcic
+spec:
+  forProvider:
+    location: eastus
+
+---
+
+apiVersion: dbforpostgresql.azure.upbound.io/v1beta1
+kind: Server
+metadata:
+  name: vfarcic
+spec:
+  forProvider:
+    location: eastus
+    resourceGroupNameRef:
+      name: vfarcic
+    storageMb: 5120
+    autoGrowEnabled: true
+    version: "11"
+    skuName: B_Gen5_2
+    sslEnforcementEnabled: true
+    administratorLogin: sqladmin
+    administratorLoginPasswordSecretRef:
+      name: my-db-creds
+      namespace: crossplane-system
+      key: password
+    publicNetworkAccessEnabled: true
+    sslMinimalTlsVersionEnforced: TLS1_2
+  writeConnectionSecretToRef:
+    namespace: crossplane-system
+    name: my-db-sql

@@ -1,0 +1,15 @@
+apiVersion: devopstoolkitseries.com/v1alpha1
+kind: SQLClaim
+metadata:
+  name: my-db
+spec:
+  id: dot20220819001304
+  compositionSelector:
+    matchLabels:
+      provider: azure
+      db: postgresql
+  parameters:
+    version: "11"
+    size: small
+  writeConnectionSecretToRef:
+    name: my-db

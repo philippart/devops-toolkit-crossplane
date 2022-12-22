@@ -1,0 +1,15 @@
+apiVersion: devopstoolkitseries.com/v1alpha1
+kind: SQLClaim
+metadata:
+  name: a-team-postgres
+spec:
+  id: a-team-postgres
+  compositionSelector:
+    matchLabels:
+      provider: google
+      db: postgres
+  parameters:
+    version: "9_6"
+    size: small
+  writeConnectionSecretToRef:
+    name: a-team-postgres
